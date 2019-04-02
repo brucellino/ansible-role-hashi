@@ -12,8 +12,19 @@ pipeline {
     }
     stage('Create') {
       steps {
-        sh 'molecule create'
+        sh 'molecule --debug create'
+      }
+    }
+    stage('Converge') {
+      steps {
+        sh 'molecule converge'
       }
     }
   }
+  post {
+        always {
+	    /* Use slackNotifier.groovy from shared library and provide current build result as parameter */   
+            slackNotifier(currentBuild.currentResult)
+            cleanWs()
+}
 }
