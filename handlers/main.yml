@@ -4,7 +4,6 @@
   systemd:
     daemon_reload: yes
     state: reloaded
-    masked: undefined
     scope: system
   tags: ['vault']
 
