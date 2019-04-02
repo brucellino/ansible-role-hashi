@@ -17,11 +17,11 @@
     state: present
 - name: Ensure that vault install path is present
   file:
-      path: "{{ vault.install_path }}"
-      group: root
-      state: directory
-      mode: 'u=rwx,g=rwx,o=rx'
-      owner: root
+    path: "{{ vault.install_path }}"
+    group: root
+    state: directory
+    mode: 'u=rwx,g=rwx,o=rx'
+    owner: root
 - name: Ensure HashiCorp Vault binary is present
   unarchive:
     src: "{{ vault.base_url }}/{{ vault.version }}/vault_{{ vault.version}}_linux_amd64.zip"
@@ -29,7 +29,7 @@
     remote_src: yes
     list_files: no
     keep_newer: no
-    decrypt: yes # not required. This option controls the autodecryption of source files using vault.
+    decrypt: yes #not required. This option controls the autodecryption of source files using vault.
     creates: "{{ vault.install_path }}/vault"
     unsafe_writes: no
     owner: root
@@ -74,7 +74,7 @@
 - name: Install autocompletion
   command: vault -autocomplete-install
   become: no
-  remote_user: becker
+  remote_user: ubuntu
   register: vault_autocomplete_install
   failed_when: "'already installed in' not in vault_autocomplete_install.stderr"
   changed_when: "'already installed in' not in vault_autocomplete_install.stderr"
