@@ -1,7 +1,11 @@
 ---
 # handlers file for vault
 - name: "Reload systemd"
-  command: systemctl daemon-reload
+  systemd:
+    daemon_reload: yes
+    state: reloaded
+    masked: undefined
+    scope: system
   tags: ['vault']
 
 - name: "Restart vault"

@@ -29,7 +29,7 @@
     remote_src: yes
     list_files: no
     keep_newer: no
-    decrypt: yes #not required. This option controls the autodecryption of source files using vault.
+    decrypt: yes  # not required. This option controls the autodecryption of source files using vault.
     creates: "{{ vault.install_path }}/vault"
     unsafe_writes: no
     owner: root

@@ -1,5 +1,5 @@
 ---
-#tasks for packer
+# tasks for packer
 - name: Install packer
   unarchive:
     src: "{{ packer.base_url }}/{{ packer.version }}/packer_{{ packer.version }}_linux_amd64.zip"
