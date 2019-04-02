@@ -1,0 +1,20 @@
+galaxy_info:
+  author: Bruce Becker
+  description: Role to add hashi tools to a host
+  company: Aptus Labs EU
+  role_name: hashi
+  license: MIT
+  min_ansible_version: 2.4
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic
+  galaxy_tags:
+    - devops
+    - cloud
+    - hasicorp
+    - vault
+    - terraform
+    - packer
+
+dependencies: []

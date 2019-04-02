@@ -1,0 +1,14 @@
+---
+#tasks for packer
+- name: Install packer
+  unarchive:
+    src: "{{ packer.base_url }}/{{ packer.version }}/packer_{{ packer.version }}_linux_amd64.zip"
+    dest: "{{ packer.install_path}}"
+    group: root
+    remote_src: yes
+    keep_newer: no
+    decrypt: yes
+    creates: "{{ packer.install_path }}/packer"
+    unsafe_writes: no
+    owner: root
+    validate_certs: yes

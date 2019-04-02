@@ -1,0 +1,16 @@
+[Unit]
+Description=Vault secret store
+Documentation=https://vaultproject.io/docs/
+After=network.target
+ConditionFileNotEmpty=/etc/vault.hcl
+
+[Service]
+LimitMEMLOCK=infinity
+Restart=on-failure
+User=vault
+Group=vault
+ExecStart=/usr/local/bin/vault server -config=/etc/vault.hcl
+ExecReload=/usr/bin/kill --signal HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target

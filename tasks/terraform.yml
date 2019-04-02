@@ -1,0 +1,14 @@
+---
+# tasks for terraform
+- name: Get the Terraform tarball
+  unarchive:
+    src: "{{ terraform.base_url }}/{{ terraform.version }}/terraform_{{ terraform.version }}_linux_amd64.zip"
+    dest: "{{ terraform.install_path }}"
+    group: root
+    remote_src: yes
+    keep_newer: no
+    decrypt: yes
+    creates: "{{ terraform.install_path }}/terraform"
+    unsafe_writes: no
+    owner: root
+    validate_certs: yes

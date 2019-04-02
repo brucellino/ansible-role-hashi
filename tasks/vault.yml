@@ -1,0 +1,80 @@
+---
+# tasks file for vault
+- name: Add vault group
+  group:
+    name: vault
+    state: present
+    system: true
+- name: Add vault user
+  user:
+    name: vault
+    comment: Vault user added by Ansible
+    create_home: false
+    groups: vault
+    append: true
+    group: vault
+    system: true
+    state: present
+- name: Ensure that vault install path is present
+  file:
+      path: "{{ vault.install_path }}"
+      group: root
+      state: directory
+      mode: 'u=rwx,g=rwx,o=rx'
+      owner: root
+- name: Ensure HashiCorp Vault binary is present
+  unarchive:
+    src: "{{ vault.base_url }}/{{ vault.version }}/vault_{{ vault.version}}_linux_amd64.zip"
+    dest: "{{ vault.install_path }}"
+    remote_src: yes
+    list_files: no
+    keep_newer: no
+    decrypt: yes # not required. This option controls the autodecryption of source files using vault.
+    creates: "{{ vault.install_path }}/vault"
+    unsafe_writes: no
+    owner: root
+    validate_certs: yes
+
+- name: "Create vault directories"
+  file:
+    path: "{{ item }}"
+    owner: vault
+    group: vault
+    mode: 0750
+    state: directory
+  loop:
+    - /var/log/vault
+    - /var/lib/vault
+
+
+- name: Ensure vault configuration
+  template:
+    dest: /etc/vault.hcl
+    src: templates/vault-dev.hcl.j2
+    owner: vault
+    group: vault
+    mode: 0640
+  notify: Restart vault
+
+- name: Ensure systemd unit is configured
+  copy:
+    dest: /etc/systemd/system/vault.service
+    src: vault.systemd
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Ensure vault is started and enabled on boot
+  systemd:
+    daemon_reload: yes
+    name: vault
+    state: started
+    enabled: yes
+
+- name: Install autocompletion
+  command: vault -autocomplete-install
+  become: no
+  remote_user: becker
+  register: vault_autocomplete_install
+  failed_when: "'already installed in' not in vault_autocomplete_install.stderr"
+  changed_when: "'already installed in' not in vault_autocomplete_install.stderr"

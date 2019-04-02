@@ -1,0 +1,14 @@
+---
+# defaults file for vault
+vault:
+  version: 1.0.3
+  base_url: https://releases.hashicorp.com/vault
+  install_path: /usr/local/bin
+terraform:
+  version: 0.11.13
+  base_url: https://releases.hashicorp.com/terraform
+  install_path: /usr/local/bin
+packer:
+  version: 1.3.5
+  base_url: https://releases.hashicorp.com/packer
+  install_path: /usr/local/bin

@@ -1,0 +1,11 @@
+---
+# handlers file for vault
+- name: "Reload systemd"
+  command: systemctl daemon-reload
+  tags: ['vault']
+
+- name: "Restart vault"
+  service:
+    name: vault
+    state: restarted
+  tags: ['vault']
