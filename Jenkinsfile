@@ -18,14 +18,14 @@ pipeline {
     }
     stage('Create') {
       steps {
-        sh 'pwd'
-        sh 'ls ../'
-        sh 'ln -s ../ansible-role-hashi_master ../ansible-role-hashi'
         sh 'molecule --debug create'
       }
     }
     stage('Converge') {
       steps {
+        sh 'pwd'
+        sh 'ls ../'
+        sh 'ln -s ../ansible-role-hashi_master ../ansible-role-hashi'
         sh 'molecule converge'
       }
     }
