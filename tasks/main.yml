@@ -1,4 +1,8 @@
 ---
+- name: Ensure unzip is available
+  package:
+    state: present
+    name: unzip
 - include_tasks: vault.yml
 - include_tasks: terraform.yml
 - include_tasks: packer.yml
