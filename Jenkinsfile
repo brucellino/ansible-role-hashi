@@ -18,6 +18,11 @@ pipeline {
     }
     stage('Create') {
       steps {
+        sh 'pwd'
+        sh 'cd ../'
+        sh 'ls'
+        sh 'ln -s ansible-role-hashicorp_master ansible-role-hashicorp'
+        sh 'cd ansible-role-hashicorp'
         sh 'molecule --debug create'
       }
     }
