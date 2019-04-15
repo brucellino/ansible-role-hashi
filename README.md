@@ -30,7 +30,6 @@ None.
 
 ## License
 
-
 MIT
 
 ## Author Information
