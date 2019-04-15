@@ -1,5 +1,8 @@
 ---
 # defaults file for vault
+tools:
+  - packer
+  - terraform
 vault:
   version: 1.0.3
   base_url: https://releases.hashicorp.com/vault

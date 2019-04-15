@@ -3,6 +3,11 @@
   package:
     state: present
     name: unzip
-- include_tasks: vault.yml
-- include_tasks: terraform.yml
-- include_tasks: packer.yml
+- debug:
+    var: tools
+- import_tasks: vault.yml
+  when: "'vault' in tools"
+- import_tasks: terraform.yml
+  when: "'terraform' in tools"
+- import_tasks: packer.yml
+  when: "'packer' in tools"
